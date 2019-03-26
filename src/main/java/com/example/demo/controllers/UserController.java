@@ -19,10 +19,10 @@ import java.util.stream.Collectors;
 public class UserController {
 
     @Autowired
-    UserServiceImpl userService;
+   private UserServiceImpl userService;
 
     @Autowired
-    ArticleServiceImpl articleService;
+    private  ArticleServiceImpl articleService;
 
 
 
@@ -30,7 +30,7 @@ public class UserController {
 
     @RequestMapping(value = "/users", method = RequestMethod.GET)
     public List<User> findAllUsers(){
-        return userService.findAllUsers();
+        return  userService.findAllUsers(); // return null to ensure that test working
     }
 
 
