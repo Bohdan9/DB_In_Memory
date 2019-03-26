@@ -12,7 +12,7 @@ import java.util.Optional;
 @Service
 public class ArticleServiceImpl implements ArticleService {
     @Autowired
-    ArticleRepository articleRepository;
+   private ArticleRepository articleRepository;
 
     @Override
     public void save_article(Article article) {
@@ -22,6 +22,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public List<Article> findAllArticles() {
+
         return articleRepository.findAll();
     }
 

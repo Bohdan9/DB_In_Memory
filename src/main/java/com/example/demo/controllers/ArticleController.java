@@ -28,7 +28,9 @@ public class ArticleController {
     }
 
     @RequestMapping(value = "/newArticle", method = RequestMethod.POST)
-    public void addNewUser(@RequestParam int id, @RequestBody Random random, Article article) {
+    public void addNewUser(@RequestParam int id) {
+        Random random = new Random();
+        Article article = new Article();
         User user = new User();
         Color color = Color.values()[(int) (Math.random() * Color.values().length)];
         StringBuilder builder = new StringBuilder();
@@ -40,7 +42,7 @@ public class ArticleController {
         String random_name = builder.toString();
         article.setText(random_name);
         article.setColor(color);
-        article.setUser(userService.findUserById(user.getId()).get());
+        //article.setUser(userService.findUserById(user.getId()).get());
         articleService.save_article(article);
 
     }

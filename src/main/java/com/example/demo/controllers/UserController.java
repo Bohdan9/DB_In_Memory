@@ -65,20 +65,6 @@ public class UserController {
                 .collect(Collectors.toList());
     }
 
-    @RequestMapping(value = "/newUser", method = RequestMethod.POST)
-    public void addNewUser() {
-        User user = new User();
-        Random random = new Random();
-        int random_age = random.nextInt(40) + 18;
-
-
-        String[] name = {"Bodik", "Kate", "Leo", "John", "Merry","Lisa", "Chris", "Melania", "Emma", "Fred"};
-        String random_names = name[random.nextInt(name.length)];
-        user.setName(random_names);
-        user.setAge(random_age);
-        userService.save_user(user);
-
-    }
 
 
     @RequestMapping(value = "/united", method = RequestMethod.GET)
@@ -101,8 +87,20 @@ public class UserController {
 
 
 
+    @RequestMapping(value = "/newUser", method = RequestMethod.POST)
+    public void addNewUser() {
+        User user = new User();
+        Random random = new Random();
+        int random_age = random.nextInt(40) + 18;
 
 
+        String[] name = {"Bodik", "Kate", "Leo", "John", "Merry","Lisa", "Chris", "Melania", "Emma", "Fred"};
+        String random_names = name[random.nextInt(name.length)];
+        user.setName(random_names);
+        user.setAge(random_age);
+        userService.save_user(user);
+
+    }
 
 
 
