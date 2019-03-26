@@ -28,7 +28,7 @@ public class ArticleController {
     }
 
     @RequestMapping(value = "/newArticle", method = RequestMethod.POST)
-    public void addNewUser(@RequestParam int id) {
+    public void addNewUser() {
         Random random = new Random();
         Article article = new Article();
         User user = new User();
