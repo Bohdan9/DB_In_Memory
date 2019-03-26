@@ -49,7 +49,7 @@ public class DataInit implements ApplicationRunner {
             String alphabet = "abcdefghijklmnopqrstuvwxyz";
 
             //Create random name
-            String[] name = {"Bodik", "Kate", "Leo", "John", "Merry","Lisa", "Chris", "Melania", "Emma","Fred"};
+            String[] name = {"Bodik", "Kate", "Leo", "John", "Merry","Lisa", "Chris", "Melania", "Emma", "Fred"};
 
             String random_names = name[random.nextInt(name.length)];
             user.setName(random_names);

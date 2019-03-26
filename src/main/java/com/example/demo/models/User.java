@@ -27,9 +27,10 @@ public class User {
     public User() {
     }
 
-    public User(String name, int age) {
+    public User(String name, int age, List<Article> articles) {
         this.name = name;
         this.age = age;
+        this.articles = articles;
     }
 
     public List<Article> getArticles() {
