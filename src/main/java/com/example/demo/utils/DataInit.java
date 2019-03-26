@@ -33,6 +33,7 @@ public class DataInit implements ApplicationRunner {
 
         Random random = new Random();
 
+        //Create users from 5 to 10
         int randon_numbOfusers =   random.nextInt(5) + 5;
 
         for (int i = 0; i <= randon_numbOfusers ; i++) {
@@ -48,14 +49,10 @@ public class DataInit implements ApplicationRunner {
             String alphabet = "abcdefghijklmnopqrstuvwxyz";
 
             //Create random name
-            for (int j = 0; j < 8; j++) {
-                sb.append(alphabet.charAt(random.nextInt(alphabet.length())));
-            }
+            String[] name = {"Bodik", "Kate", "Leo", "John", "Merry","Lisa", "Chris", "Melania", "Emma","Fred"};
 
-            String random_name = sb.toString();
-            user.setName(random_name);
-
-
+            String random_names = name[random.nextInt(name.length)];
+            user.setName(random_names);
 
             //Create random age
             int r_age = random.nextInt(50) + 10;
@@ -63,7 +60,7 @@ public class DataInit implements ApplicationRunner {
 
 
             //Create numbers of articles for users
-            int numbersOfArticles = random.nextInt(12);
+            int numbersOfArticles = random.nextInt(10);
             for (int m = 0; m < numbersOfArticles; m++) {
 
                 Article article = new Article();
