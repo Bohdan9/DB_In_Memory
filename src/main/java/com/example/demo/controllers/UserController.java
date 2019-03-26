@@ -10,6 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 @RestController
@@ -41,26 +44,26 @@ public class UserController {
 
 
     @RequestMapping(value = "/colors", method = RequestMethod.GET)
-    public List<User> findUsersByColor(@RequestParam String color, @RequestBody Color color_value){
-        color_value.valueOf(color);
+    public List<User> findUsersByColor(@RequestParam String color){
+        Color color1 = Color.valueOf(color);
         return userService.findAllUsers()
                 .stream()
                 .filter(user -> user.getArticles()
                 .stream()
-                .anyMatch(article -> article.getColor()==(color_value)))
+                .anyMatch(article -> article.getColor().equals(color1)))
                 .collect(Collectors.toList());
 
     }
 
-   /* @RequestMapping(value = "/uniqueName", method = RequestMethod.GET)
+    @RequestMapping(value = "/uniqueName", method = RequestMethod.GET)
     public List<User> findUsersWhereArticleMoreThen3(){
 
         return userService.findAllUsers()
                 .stream()
                 .filter(user -> user.getArticles().size() > 3 )
-                .filter()
+                .filter(distinctByKey(User::getName))
                 .collect(Collectors.toList());
-    }*/
+    }
 
     @RequestMapping(value = "/newUser", method = RequestMethod.POST)
     public void addNewUser() {
@@ -80,7 +83,7 @@ public class UserController {
 
     @RequestMapping(value = "/united", method = RequestMethod.GET)
     public Map<User, List<Article>> UsersAndArticles() {
-        Map<User, List<Article>> CombineMap = new TreeMap<>();
+        Map<User, List<Article>> CombineMap = new HashMap<>();
         List<User> users = userService.findAllUsers();
 
         for (User u : users
@@ -88,6 +91,12 @@ public class UserController {
             CombineMap.put(u, u.getArticles());
         }
         return CombineMap;
+    }
+
+
+    private <T> Predicate<T> distinctByKey(Function<? super T, ?> keyExtractor) {
+        Set<Object> seen = ConcurrentHashMap.newKeySet();
+        return t -> seen.add(keyExtractor.apply(t));
     }
 
 

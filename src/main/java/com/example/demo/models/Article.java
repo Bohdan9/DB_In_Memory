@@ -1,6 +1,6 @@
 package com.example.demo.models;
 import com.example.demo.models.Enums.Color;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -14,7 +14,7 @@ public class Article {
     private String text;
     private Color color;
 
-    @JsonIgnore
+
     @ManyToOne(
             fetch = FetchType.LAZY
     )
