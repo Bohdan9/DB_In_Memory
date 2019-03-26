@@ -1,4 +1,4 @@
-package com.example.demo.models.enums;
+package com.example.demo.models.Enums;
 
 public enum Color {
 

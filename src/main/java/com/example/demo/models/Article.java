@@ -1,29 +1,49 @@
 package com.example.demo.models;
+import com.example.demo.models.Enums.Color;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import javax.persistence.*;
+import java.util.Objects;
 
-
-import com.example.demo.models.enums.Color;
-
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
 
 @Entity
 public class Article {
 
-    private long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
     private String text;
-    @ManyToOne(fetch = FetchType.LAZY)
-    private User user;
     private Color color;
+
+    @JsonIgnore
+    @ManyToOne(
+            fetch = FetchType.LAZY
+    )
+    private User user;
 
     public Article() {
     }
 
-    public Article(String text, User user, Color color) {
+    public Article(int id, String text, Color color) {
+        this.id = id;
         this.text = text;
-        this.user = user;
         this.color = color;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Article article = (Article) o;
+        return id == article.id &&
+                Objects.equals(text, article.text) &&
+                color == article.color;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, text, color);
+    }
+
 
     public String getText() {
         return text;
@@ -31,14 +51,6 @@ public class Article {
 
     public void setText(String text) {
         this.text = text;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 
     public Color getColor() {
@@ -49,14 +61,22 @@ public class Article {
         this.color = color;
     }
 
-    //Only for console testing
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     @Override
     public String toString() {
         return "Article{" +
                 "id=" + id +
                 ", text='" + text + '\'' +
-                ", user=" + user +
                 ", color=" + color +
                 '}';
     }
+
+
 }

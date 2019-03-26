@@ -1,20 +1,28 @@
 package com.example.demo.models;
-
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 public class User {
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private int id;
     private String name;
     private int age;
+
+    @JsonIgnore
     @OneToMany(
+
+
             fetch = FetchType.LAZY,
-            mappedBy = "u")
-    private List<Article> articleList;
+            mappedBy = "user"
+
+    )
+    private List<Article> articles;
 
     public User() {
     }
@@ -22,6 +30,22 @@ public class User {
     public User(String name, int age) {
         this.name = name;
         this.age = age;
+    }
+
+    public List<Article> getArticles() {
+        return articles;
+    }
+
+    public void setArticles(List<Article> articles) {
+        this.articles = articles;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -40,23 +64,30 @@ public class User {
         this.age = age;
     }
 
-    public List<Article> getArticleList() {
-        return articleList;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return id == user.id &&
+                age == user.age &&
+                Objects.equals(name, user.name);
     }
 
-    public void setArticleList(List<Article> articleList) {
-        this.articleList = articleList;
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, age);
     }
 
-    //Only for console testing
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", age=" + age +
-                ", articleList=" + articleList +
+                ", articles=" + articles +
                 '}';
     }
-
 }
+
+
