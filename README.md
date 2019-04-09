@@ -1,5 +1,5 @@
 # DB_In_Memory
-H2 DB
+H2 DB. Spring Boot
 
 SpringBootRestApi H2 DB. To srart project please use Postman. 
 All methods have descriptions in this 
